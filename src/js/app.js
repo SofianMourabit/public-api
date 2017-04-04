@@ -11,16 +11,13 @@ let footer = document.querySelector('#js__footer');
 let searchButton = document.querySelector('#js__button');
 
 searchButton.addEventListener('click', (e)=>{
-
-  console.log(e.target.previousElementSibling.value);
   let searchText = e.target.previousElementSibling;
   if(searchText.value){
     while (gallery.firstChild) {
       gallery.removeChild(gallery.firstChild);
     }
     let search= searchText.value.split(' ').join('+');
-    const url = `http://www.omdbapi.com/?s=${search}&type=movie`;
-    console.log(url);
+    const url = `https://www.omdbapi.com/?s=${search}&type=movie`;
 
     let xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -62,7 +59,7 @@ searchButton.addEventListener('click', (e)=>{
               gallery.insertAdjacentHTML('afterbegin',galleryHTML);
 
 
-              const url = `http://www.omdbapi.com/?i=${imdbID}`;
+              const url = `https://www.omdbapi.com/?i=${imdbID}`;
               let xhr2 = new XMLHttpRequest();
               xhr2.open('GET', url, true);
               xhr2.responseType = 'json';
@@ -113,8 +110,6 @@ searchButton.addEventListener('click', (e)=>{
 // Open
 gallery.addEventListener('click', (e)=>{
   e.preventDefault();
-  console.log(e.target);
-  console.log(e.target.id);
   let imdbID = e.target.id;
   // Instantiate new modal
   var modal = new Custombox.modal({
