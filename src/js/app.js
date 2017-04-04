@@ -1,32 +1,8 @@
-//
-// CustomBox Plugin (Vanilla JS)
-//
-
-
-
+"use strict"
 
 let gallery = document.querySelector('#js__list');
 let footer = document.querySelector('#js__footer');
 
-
-//
-// Vanilla JS search box
-//
-
-let searchBox = document.querySelector('.search__input');
-let a = document.querySelectorAll('.list__content');
-searchBox.addEventListener("keyup", () => {
-  let inputText = search.value.toLowerCase();
-  let j = 0;
-  for(let i=0; i < a.length; i++ ) {
-    let captionText = a[i].getAttribute("title").toLowerCase();
-    if (captionText.includes(inputText)){
-      a[i].parentElement.style.display = "block";
-    }else{
-      a[i].parentElement.style.display = "none";
-    }
-  }
-});
 
 //
 // Ajax call to get Movies from omdb api
@@ -35,76 +11,109 @@ searchBox.addEventListener("keyup", () => {
 let searchButton = document.querySelector('#js__button');
 
 searchButton.addEventListener('click', (e)=>{
+
   console.log(e.target.previousElementSibling.value);
-  let searchText = e.target.previousElementSibling.value;
-  let search= searchText.split(' ').join('+');
-  const url = `http://www.omdbapi.com/?s=${search}&type=movie`;
-  console.log(url);
+  let searchText = e.target.previousElementSibling;
+  if(searchText.value){
+    while (gallery.firstChild) {
+      gallery.removeChild(gallery.firstChild);
+    }
+    let search= searchText.value.split(' ').join('+');
+    const url = `http://www.omdbapi.com/?s=${search}&type=movie`;
+    console.log(url);
 
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.responseType = 'json';
-  xhr.onload = function () {
-    if (xhr.readyState === xhr.DONE) {
-      if (xhr.status === 200) {
-        let json = xhr.response.Search;
-        for(let i = 0; i < json.length; i++) {
-          let searchResult = json[i];
-          let title = searchResult.Title;
-          let type = searchResult.Type;
-          let poster = searchResult.Poster;
-          let imdbID = searchResult.imdbID;
-          let galleryHTML = `
-          <li class="list__item">
-            <a class="list__content" href="${imdbID}" title="${title}">
-              <img id="${imdbID}" src="${poster}" alt="${title}"/>
-            </a>
-          </li>
-          `;
-          gallery.insertAdjacentHTML('afterbegin',galleryHTML);
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function () {
+      if (xhr.readyState === xhr.DONE) {
+        if (xhr.status === 200) {
+          console.log(xhr.response);
+          if(xhr.response.Error === "Movie not found!"){
+            swal({
+              title: "Movie not found",
+              text: "Please check for typo's and try again",
+              type: "error",
+              confirmButtonColor: "#2a3d45",
+            });
+          }else{
+            let json = xhr.response.Search;
+            for(let i = 0; i < json.length; i++) {
+              let searchResult = json[i];
+              let title = searchResult.Title;
+              let poster = searchResult.Poster;
+              let imdbID = searchResult.imdbID;
+              let posterImage ='';
+              if(poster === 'N/A'){
+                posterImage =`<svg  class="icons">
+                <use id="${imdbID}" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./img/sprite/sprite.svg#icons--popcorn"></use>
+              </svg>
+              <h5>${title}</h5>`
+              }else {
+                posterImage =`<img id="${imdbID}" src="${poster}" alt="${title}"/>`
+              }
+              let galleryHTML = `
+              <li class="list__item">
+                <a class="list__content" href="${imdbID}" title="${title}">
+                  ${posterImage}
+                </a>
+              </li>
+              `;
+              gallery.insertAdjacentHTML('afterbegin',galleryHTML);
 
 
-          const url = `http://www.omdbapi.com/?i=${imdbID}`;
-          let xhr2 = new XMLHttpRequest();
-          xhr2.open('GET', url, true);
-          xhr2.responseType = 'json';
-          xhr2.onload = function () {
-            if (xhr2.readyState === xhr2.DONE) {
-              if (xhr2.status === 200) {
-                let json2 = xhr2.response;
-                let searchResult = json2;
-                let categorie = searchResult.Genre;
-                let plot = searchResult.Plot;
-                let title = searchResult.Title;
-                let year = searchResult.Year;
-                let poster = searchResult.Poster;
-                let modalHTML = `
-                <div id="modal__${imdbID}" class="modal">
-                  <button type="button" class="button__modal" onclick="Custombox.modal.closeAll();">Back</button>
-                  <img id="${imdbID}" src="${poster}" alt="${title}"/>
-                  <h1>${title}</h1>
-                  <p>${plot}</p>
-                  <span>Year: </span><span>${year}</span>
-                  <span>Categorie: </span><span>${categorie}</span>
-                </div>
-                `;
-                footer.insertAdjacentHTML('afterend',modalHTML);
+              const url = `http://www.omdbapi.com/?i=${imdbID}`;
+              let xhr2 = new XMLHttpRequest();
+              xhr2.open('GET', url, true);
+              xhr2.responseType = 'json';
+              xhr2.onload = function () {
+                if (xhr2.readyState === xhr2.DONE) {
+                  if (xhr2.status === 200) {
+                    let json2 = xhr2.response;
+                    let searchResult = json2;
+                    let categorie = searchResult.Genre;
+                    let plot = searchResult.Plot;
+                    let title = searchResult.Title;
+                    let year = searchResult.Year;
+                    let poster = searchResult.Poster;
+                    let posterImage ='';
+                    if(poster === 'N/A'){
+                      posterImage =`<svg class="icons">
+                      <use id="${imdbID}"  xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./img/sprite/sprite.svg#icons--popcorn"></use>
+                    </svg>`
+                  }else {
+                    posterImage =`<img id="${imdbID}" src="${poster}" alt="${title}"/>`
+                  }
+                  let modalHTML = `
+                  <div id="modal__${imdbID}" class="modal">
+                    <button type="button" class="button__modal" onclick="Custombox.modal.closeAll();">Back</button>
+                    ${posterImage}
+                    <h1>${title}</h1>
+                    <p>${plot}</p>
+                    <span>Year: </span><span>${year}</span>
+                    <span>Categorie: </span><span>${categorie}</span>
+                  </div>
+                  `;
+                  footer.insertAdjacentHTML('afterend',modalHTML);
+                }
               }
             }
+            xhr2.send(null);
           }
-          xhr2.send(null);
         }
       }
     }
   };
 
   xhr.send(null);
-
+  searchText.value ='';
+}
 });
 
 // Open
 gallery.addEventListener('click', (e)=>{
   e.preventDefault();
+  console.log(e.target);
   console.log(e.target.id);
   let imdbID = e.target.id;
   // Instantiate new modal
@@ -117,16 +126,3 @@ gallery.addEventListener('click', (e)=>{
   });
   modal.open();
 });
-
-
-//
-// Localstorage for saving images
-//
-if (localStorageSupport()) {
-  // localStorage.setItem('image', );
-  // let moviePicture = eval(localStorage.getItem('image'));
-}
-
-function localStorageSupport() {
-  return (('localStorage' in window) && window['localStorage'] !== null)
-}

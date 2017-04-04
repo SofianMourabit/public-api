@@ -22,3 +22,7 @@ img {
   max-width: 100%;
   box-shadow: 0 5px 5px 1px $color-shadow;
 }
+body {
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
