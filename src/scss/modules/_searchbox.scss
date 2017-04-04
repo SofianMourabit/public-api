@@ -1,0 +1,36 @@
+/* =================================
+searchBox styles
+==================================== */
+.search{
+  @include e(input){
+    @extend %placeholder;
+    @extend %input;
+    color: $color-secondary;
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid $color-accent;
+      color: $color-primary;
+    }
+    @include mq(medium){
+      width: 50%;
+      margin: em(32px) auto;
+    }  
+  }
+  @include e(label){
+    @include m(hidden){
+      @extend %srt;
+    }
+  }
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  @extend %placeholder;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  @extend %placeholder;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  @extend %placeholder;
+}
+:-moz-placeholder { /* Firefox 18- */
+  @extend %placeholder;
+}

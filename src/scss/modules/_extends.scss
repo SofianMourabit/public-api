@@ -1,0 +1,31 @@
+%placeholder{
+  font-family: $font-family--secondary;
+  text-align: start;
+  padding-right: em(10px);
+  font-size: em(32px);
+  letter-spacing: $letter-space;
+}
+%input{
+  border: none;
+  margin: 4rem 0;
+  width: 100%;
+  transition: border-bottom $trns-duration;
+  border-bottom: 2px solid $color-primary;
+}
+%button{
+  border-bottom: 0;
+  color: $color-accent;
+  background-color: transparent;
+  border: 1px solid $color-accent;
+  border-radius: .4em;
+  padding: 6px 12px;
+  font-size: em(16px);
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  outline: none;
+}

@@ -1,0 +1,49 @@
+/* =================================
+Global config
+==================================== */
+
+// Font Stacks
+
+$font-url--google        : 'https://fonts.googleapis.com/css?family=Miriam+Libre|Source+Sans+Pro|Indie+Flower';
+$font-family--primary    : 'Miriam Libre', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family--secondary  : 'Source Sans Pro','Helvetica Neue', Helvetica, Arial, sans-serif;
+
+// Font Weights
+
+$font-weight--light      : 300;
+$font-weight--medium     : 400;
+$font-weight--bold       : 700;
+
+// Descriptive Base Colors
+
+$white : #fff;
+$black : #0b0b0b;
+$grey  : #797e83;
+
+$pickled-bluewood : #2a3d45;
+$jungle-mist      : #c2d5d8;
+$mango-tango      : #d47500;
+$emperor          : #525252;
+
+// Color Usage
+
+$color-primary   : $pickled-bluewood;
+$color-secondary : $jungle-mist;
+$color-accent    : $mango-tango;
+$color-shadow    : rgba($grey, .2);
+
+// Text
+
+$base__font-size : 24px;
+$base__line      : 24px;
+$letter-space    : 2px;
+
+// Transitions
+
+$trns-duration  : .6s;
+
+// Breakpoints
+
+$brkpoint--sm    : 320px;
+$brkpoint--md    : 768px;
+$brkpoint--lg    : 1200px;

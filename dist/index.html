@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Api Photo Gallery</title>
+  <meta name="author" content="Sofian Mourabit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="stylesheet" href="js/vendor/customBox.min.css">
+  <link rel="stylesheet" href="css/application.css">
+  <link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Source+Sans+Pro" rel="stylesheet">
+</head>
+<body>
+  <main class="container">
+    <div id="gallery" class="gallery">
+      <div class="search">
+        <label for="search" class="search__label--hidden">Search box:</label>
+        <input type="text" name="search" id="search" placeholder="Type in here..." class="search__input">
+        <button id='js__button' type="button" class="button">Search</button>
+      </div>
+      <ul id="js__list" class="list">
+      </ul>
+    </div>
+  </main>
+  <footer id="js__footer" class="footer">
+    <p>Copyright &copy; Sofian Mourabit - 2017</p>
+  </footer>
+
+  <script src="js/vendor/customBox.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

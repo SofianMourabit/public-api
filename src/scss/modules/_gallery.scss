@@ -1,0 +1,19 @@
+/* =================================
+Image Gallert Layout Styles
+==================================== */
+.gallery {
+  @extend %center-align;
+}
+.list {
+  display: flex;
+  flex-flow: row wrap;
+  @include e(item){
+    padding: 1em;
+    margin-bottom: 4rem;
+    flex-basis: 100%;
+    @extend %center-align;
+    @include mq(medium){
+        flex-basis: 25%;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+/* =================================
+Container Layout Styles
+==================================== */
+.container {
+  max-width: 90%;
+  margin: auto;
+  @include mq(medium){
+      max-width: 80%;
+      margin: auto;
+  };
+}

@@ -1,0 +1,8 @@
+.button{
+  @extend %button;
+  @include e(modal){
+    @extend %button;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
