@@ -1246,9 +1246,9 @@ Extends Styles
 
 .button, .button__modal {
   border-bottom: 0;
-  color: #d47500;
+  color: #1c2833;
   background-color: transparent;
-  border: 1px solid #d47500;
+  border: 1px solid #1c2833;
   border-radius: .4em;
   padding: 6px 12px;
   font-size: 0.66667em;
@@ -1269,10 +1269,11 @@ Search Box Styles
 searchBox styles
 ==================================== */
 .search__input {
-  color: #c2d5d8; }
+  color: #c2d5d8;
+  background-color: transparent; }
   .search__input:focus {
     outline: none;
-    border-bottom: 2px solid #d47500;
+    border-bottom: 2px solid #1c2833;
     color: #2a3d45; }
   @media (min-width: 768px) {
     .search__input {
@@ -1280,16 +1281,20 @@ searchBox styles
       margin: 1.33333em auto; } }
 
 ::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */ }
+  /* Chrome/Opera/Safari */
+  color: #1c2833; }
 
 ::-moz-placeholder {
-  /* Firefox 19+ */ }
+  /* Firefox 19+ */
+  color: #1c2833; }
 
 :-ms-input-placeholder {
-  /* IE 10+ */ }
+  /* IE 10+ */
+  color: #1c2833; }
 
 :-moz-placeholder {
-  /* Firefox 18- */ }
+  /* Firefox 18- */
+  color: #1c2833; }
 
 /* =================================
 Image Gallery Styles
