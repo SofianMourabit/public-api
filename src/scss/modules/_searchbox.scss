@@ -6,6 +6,7 @@ searchBox styles
     @extend %placeholder;
     @extend %input;
     color: $color-secondary;
+    background-color: transparent;
     &:focus {
       outline: none;
       border-bottom: 2px solid $color-accent;
@@ -14,7 +15,7 @@ searchBox styles
     @include mq(medium){
       width: 50%;
       margin: em(32px) auto;
-    }  
+    }
   }
   @include e(label){
     @include m(hidden){
@@ -24,13 +25,17 @@ searchBox styles
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   @extend %placeholder;
+  color: $color-accent;
 }
 ::-moz-placeholder { /* Firefox 19+ */
   @extend %placeholder;
+  color: $color-accent;
 }
 :-ms-input-placeholder { /* IE 10+ */
   @extend %placeholder;
+  color: $color-accent;
 }
 :-moz-placeholder { /* Firefox 18- */
   @extend %placeholder;
+  color: $color-accent;
 }
