@@ -3,6 +3,7 @@ searchBox styles
 ==================================== */
 .search{
   width: 100%;
+  margin-bottom: 1em;
   @include mq(medium){
     width: 70%;
     margin: em(32px) auto;

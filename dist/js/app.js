@@ -13,6 +13,7 @@ function emptyGallery(gallery) {
     gallery.removeChild(gallery.firstChild);
   }
 }
+
 function createGallery() {
   if (this.readyState === this.DONE) {
     if (this.status === 200) {
@@ -41,11 +42,7 @@ function createGallery() {
 
           // Call to create modals
           var url = 'https://www.omdbapi.com/?i=' + imdbID;
-          var oReq = new XMLHttpRequest();
-          oReq.responseType = 'json';
-          oReq.addEventListener('load', createModals);
-          oReq.open("get", url, true);
-          oReq.send();
+          ajaxCall(url, createModals);
         }
       }
     }
@@ -60,43 +57,70 @@ function createModals() {
       var genre = searchResult.Genre;
       var plot = searchResult.Plot;
       var title = searchResult.Title;
-      var year = searchResult.Year;
+      var year = searchResult.Released;
       var poster = searchResult.Poster;
+      var rating = searchResult.Ratings[0].Value;
+      var stars = searchResult.Actors;
       var posterImage = '';
       if (poster === 'N/A') {
         posterImage = '<svg class="icons">\n        <use id="' + imdbID + '"  xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./img/sprite/sprite.svg#icons--popcorn"></use>\n      </svg>';
       } else {
         posterImage = '<img class="modal__image" id="' + imdbID + '" src="' + poster + '" alt="' + title + '"/>';
       }
-      var modalHTML = '\n    <div id="modal__' + imdbID + '" class="modal">\n      <div class="modal__layout">\n        <button type="button" class="button__modal" onclick="Custombox.modal.closeAll();">Back</button>\n        ' + posterImage + '\n        <div class="modal__content">\n          <h1>' + title + '</h1>\n          <p>' + plot + '</p>\n          <span>Year: </span><span>' + year + '</span><br>\n            <span>Genre: </span><span>' + genre + '</span>\n          </div>\n        </div>\n      </div>\n      ';
+      var modalHTML = '\n    <div id="modal__' + imdbID + '" class="modal">\n      <div class="modal__layout">\n        <button type="button" class="button__modal" onclick="Custombox.modal.closeAll();">Back</button>\n        ' + posterImage + '\n        <div class="modal__content">\n          <h1>' + title + '</h1>\n          <p>' + plot + '</p>\n          <div class="modal__facts">\n            <span class="modal__fact">Release Date: </span><span class="modal__fact">' + year + '</span>\n            <span class="modal__fact">Genre: </span><span class="modal__fact">' + genre + '</span>\n            <span class="modal__fact">Rating: </span><span class="modal__fact">' + rating + '</span>\n            <span class="modal__fact">Stars: </span><span class="modal__fact">' + stars + '</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    ';
       footer.insertAdjacentHTML('afterend', modalHTML);
     }
   }
 };
 
-function ajaxCall() {
-  console.log('triggered');
+function callGallery() {
   var searchText = document.querySelector('.search__input');
   if (searchText.value) {
     emptyGallery(gallery);
     var search = searchText.value.split(' ').join('+');
     var url = 'https://www.omdbapi.com/?s=' + search + '&type=movie';
 
-    var oReq = new XMLHttpRequest();
-    oReq.responseType = 'json';
-    oReq.addEventListener('load', createGallery);
-    oReq.open("get", url, true);
-    oReq.send();
+    ajaxCall(url, createGallery);
     searchText.value = '';
   }
 }
 
+function ajaxCall(url, name) {
+  var oReq = new XMLHttpRequest();
+  oReq.responseType = 'json';
+  oReq.addEventListener('load', name);
+  oReq.open("get", url, true);
+  oReq.send();
+}
+
+function createFavoritesGallery() {
+  if (this.readyState === this.DONE) {
+    if (this.status === 200) {
+      var searchResult = this.response;
+      var title = searchResult.Title;
+      var poster = searchResult.Poster;
+      var imdbID = searchResult.imdbID;
+      var galleryHTML = '\n      <li class="list__item">\n        <a class="list__content" href="' + imdbID + '" title="' + title + '">\n          <img id="' + imdbID + '" src="' + poster + '" alt="' + title + '"/>\n        </a>\n      </li>\n      ';
+      gallery.insertAdjacentHTML('beforeend', galleryHTML);
+    }
+  }
+};
+function sofianFavorites() {
+  var myMovies = ['tt0119116', 'tt0414993', 'tt2015381', 'tt0468569', 'tt0119174', 'tt1568346', 'tt0347149', 'tt2488496'];
+  for (var i = 0; i < myMovies.length; i++) {
+    var movie = myMovies[i];
+    var url = 'https://www.omdbapi.com/?i=' + movie;
+    ajaxCall(url, createFavoritesGallery);
+    ajaxCall(url, createModals);
+  }
+}
+sofianFavorites();
 //
 // Add event listener to search input and button
 //
 
-searchButton.addEventListener('click', ajaxCall);
-searchButton.previousElementSibling.addEventListener('change', ajaxCall);
+searchButton.addEventListener('click', callGallery);
+searchButton.previousElementSibling.addEventListener('change', callGallery);
 
 //
 // Open modal on click

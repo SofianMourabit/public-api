@@ -16,4 +16,7 @@ Image Gallert Layout Styles
         flex-basis: 25%;
     }
   }
+  @include e(heading){
+    flex-basis: 100%;
+  }
 }

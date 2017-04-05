@@ -1,5 +1,13 @@
 .button{
   @extend %button;
+  &:hover{
+    border-color: lighten($color-accent, 30%);
+    color: lighten($color-accent, 30%);
+    transition: .3s ease-out;
+  }
+  @include mq(medium){
+    width: auto;
+  }
   @include e(modal){
     @extend %button;
     display: block;

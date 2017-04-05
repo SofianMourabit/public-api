@@ -7,7 +7,7 @@
 }
 %input{
   border: none;
-  margin: 4rem 0;
+  margin: 2em 0;
   width: 100%;
   transition: border-bottom $trns-duration;
   border-bottom: 2px solid $color-primary;
@@ -28,4 +28,5 @@
   touch-action: manipulation;
   cursor: pointer;
   outline: none;
+  width: 100%;
 }

@@ -20,6 +20,15 @@
   @include e(content){
     margin-left: 1em;
   }
+  @include e(facts){
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  @include e(fact){
+    flex-basis: 50%;
+    font-size: em(16px);
+  }
 }
 .custombox-open {
     background-color: white;
