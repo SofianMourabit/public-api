@@ -2,6 +2,11 @@
 searchBox styles
 ==================================== */
 .search{
+  width: 100%;
+  @include mq(medium){
+    width: 70%;
+    margin: em(32px) auto;
+  }
   @include e(input){
     @extend %placeholder;
     @extend %input;
@@ -13,8 +18,7 @@ searchBox styles
       color: $color-primary;
     }
     @include mq(medium){
-      width: 50%;
-      margin: em(32px) auto;
+      width: 70%;
     }
   }
   @include e(label){

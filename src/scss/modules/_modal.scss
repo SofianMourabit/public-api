@@ -1,10 +1,25 @@
 .modal{
-  @extend %clearfix;
   background-color: #FFF;
-  padding: 24px;
-  width: 60%;
   position: relative;
   display: none;
+  @include e(layout){
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 1em 0;
+    max-width: 1024px;
+    @include mq(medium){
+      flex-direction: row;
+    }
+  }
+  @include e(image){
+    max-height: 250px;
+    max-width: 250px;
+    margin: auto;
+  }
+  @include e(content){
+    margin-left: 1em;
+  }
 }
 .custombox-open {
     background-color: white;
